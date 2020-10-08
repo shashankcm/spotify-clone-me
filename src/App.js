@@ -11,7 +11,7 @@ import actions from "./store/types";
 const spotifyApi = new SpotifyWebApi();
 
 function App() {
-  const [{ user, token }, dispatch] = useStoreProviderValue();
+  const [{ token }, dispatch] = useStoreProviderValue();
 
   useEffect(() => {
     const responseToken = getResponseToken();
@@ -31,6 +31,27 @@ function App() {
         dispatch({
           type: actions.SET_USER,
           user,
+        })
+      );
+
+      spotifyApi.getUserPlaylists().then((playlist) =>
+        dispatch({
+          type: actions.SET_PLAYLIST,
+          playlist,
+        })
+      );
+
+      spotifyApi.getPlaylist("37i9dQZEVXcPY0wyDMXEC1").then((response) =>
+        dispatch({
+          type: actions.SET_DISOVER_WEEKLY,
+          discover_weekly: response,
+        })
+      );
+
+      spotifyApi.getMyTopArtists().then((response) =>
+        dispatch({
+          type: actions.SET_TOP_ARTISTS,
+          top_artists: response,
         })
       );
     }

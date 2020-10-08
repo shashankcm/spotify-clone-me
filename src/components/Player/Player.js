@@ -11,10 +11,10 @@ const Player = ({ spotifyApi }) => {
     <div className="player">
       <div className="player__body">
         <Sidebar />
-        <Body />
+        <Body spotifyApi={spotifyApi} />
       </div>
 
-      <Footer />
+      <Footer spotifyApi={spotifyApi} />
     </div>
   );
 };
